@@ -15,8 +15,7 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
   ({ label, outerProps, ...props }, ref) => {
     const {
       register,
-      formState: { isSubmitting },
-      errors,
+      formState: { isSubmitting, errors },
     } = useFormContext()
     const error = Array.isArray(errors[props.name])
       ? errors[props.name].join(", ")
@@ -26,7 +25,7 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
       <div {...outerProps}>
         <label>
           {label}
-          <input disabled={isSubmitting} {...props} ref={register} />
+          <input disabled={isSubmitting} {...props} {...register(props.name)} />
         </label>
 
         {error && (
